@@ -4,6 +4,7 @@
   <title>Architecture Map</title>
   <meta name="viewport" content="initial-scale=1.0">
   <meta charset="utf-8">
+  <link href='https://fonts.googleapis.com/css?family=Josefin+Sans:400,700,100' rel='stylesheet' type='text/css'>
   <link rel="stylesheet" type="text/css" href="css/map.css">
     
   <!-- initilize map with UK region-->
@@ -21,7 +22,7 @@
 
     // Map configuration
     map = new google.maps.Map(document.getElementById('map'), {
-     center: loc,
+      center: loc,
       zoom: 15,
       disableDefaultUI: true,
       zoomControl: true,
@@ -41,16 +42,16 @@
     infobox = new InfoBox({
       content: document.getElementById("infobox"),
       disableAutoPan: false,
-      maxWidth: 150,
+      maxWidth: 400,
       pixelOffset: new google.maps.Size(-140, 0),
       zIndex: null,
       boxStyle: {
           background: "url('http://google-maps-utility-library-v3.googlecode.com/svn/trunk/infobox/examples/tipbox.gif') no-repeat",
-            opacity: 0.75,
-            width: "280px"
+            opacity: 1,
+            width: "350px"
       },
-      closeBoxMargin: "12px 4px 2px 2px",
-      closeBoxURL: "http://www.google.com/intl/en_us/mapfiles/close.gif",
+      /*closeBoxMargin: "12px 4px 2px 2px",*/
+      closeBoxURL: "",
       infoBoxClearance: new google.maps.Size(1, 1)
     });
 
@@ -79,7 +80,15 @@
         stylers: [
           { visibility: "off" }
         ]
-      }     
+      },
+      {
+      "featureType": "water",
+      "stylers": [
+        { "saturation": -6 },
+        { "lightness": -74 },
+        { "color": "#2580cb" }
+      ]
+      },     
     ];
 
     //Set map style
@@ -87,6 +96,11 @@
 
     google.maps.event.addListener(marker, 'click', function() {
       infobox.open(map, this);
+      map.panTo(loc);
+    });
+
+    google.maps.event.addListener(map, 'click', function() {
+      infobox.close();
       map.panTo(loc);
     });
 
@@ -103,7 +117,12 @@
 
 <div class="infobox-wrapper">
   <div id="infobox">
-      The contents of your info box. It's very easy to create and customize.
+      <img src="http://41.media.tumblr.com/1c74b9da81313cfc7245527033e594d7/tumblr_n5t9g0UvTH1snysgoo1_1280.jpg">
+      <div id="infobox-text">
+        <h3>The Whittington Estate</h3>
+        <p>Architect: <span>Peter Tabori</span></p>
+        <p>Sector: <span>Public</span></p> 
+      </div>
   </div>
 </div>
 
