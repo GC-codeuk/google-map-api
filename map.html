@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Architecture Map</title>
+    <meta name="viewport" content="initial-scale=1.0">
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="css/map.css">
+  </head>
+  <body>
+
+    <div id="map"></div>
+
+
+    <script>
+      var map;
+
+      // Map style array settings
+      var styles = [
+      // Hue of map setting
+        {
+          stylers: [
+            { hue: "#00ffe6" },
+            { saturation: -20 }
+          ]
+        },
+       // Simplify road features
+        {
+          featureType: "road",
+          elementType: "geometry",
+          stylers: [
+            { lightness: 100 },
+            { visibility: "simplified" }
+          ]
+        },
+        // Remove street names
+        {
+          featureType: "road",
+          elementType: "labels",
+          stylers: [
+            { visibility: "off" }
+          ]
+        }     
+      ];
+
+      var contentString = '<div id="content"> <img src="https://municipaldreams.files.wordpress.com/2015/04/sn-whittington-estate-raydon-street-1.jpg"> <div id="bodyContent"> <h1 id="firstHeading" class="firstHeading">The Whittington Estate</h1> <p>The <b>Whittington Estate</b> was built in the 1970s as part of post WWII social housing by Camden Council. Built north of Raydon Street, and overlooking Highgate Cemetery, the estate comprises six terraces with strong horizontal lines of balconies and cornices and vertical cross walls. Between each terrace is a pedestrian walkway of a different character, with planting of trees and shrubs to soften the architecture. This landscaping together with other green spaces provided for residents is an integral part of the design.</p> </div>';
+
+      // Initilize map
+      function initMap() {
+        map = new google.maps.Map(document.getElementById('map'), {
+          center: {lat: 51.5656290, lng: -0.1421710},
+          zoom: 15,
+          disableDefaultUI: true,
+          zoomControl: true,
+          zoomControlOptions: {
+            position: google.maps.ControlPosition.TOP_LEFT
+          }
+        });
+
+        var marker = new google.maps.Marker({
+          position: {lat: 51.5656290, lng: -0.142171},
+          title:"Hello World!"
+        });
+
+        var infowindow = new google.maps.InfoWindow({
+          content: contentString
+        });
+
+        map.setOptions({styles: styles});
+        marker.setMap(map);
+        marker.addListener('click', function() {
+          infowindow.open(map, marker);
+        });
+      };
+
+    </script>
+
+
+    <!-- initilize map with UK region-->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB4ykymJ5yCNhWlPIDV0Dr7-0tC57Abuog&callback=initMap&region=GB"
+    async defer></script>
+
+  </body>
+</html>
